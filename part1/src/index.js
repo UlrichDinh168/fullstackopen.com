@@ -1,58 +1,55 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
-const Header = props => {
-  return (
-    <div>
-      <p>
-        <h1>{props.course}</h1>
-      </p>
-    </div>
-  );
-};
-
-const Content = props => {
-  return (
-    <div>
-      <p>
-        {props.part} {props.exercises}
-      </p>
-    </div>
-  );
-};
-
-const Total = props => {
-  return (
-    <div>
-      <p>You have participated in {props.exercises} exercises.</p>
-    </div>
-  );
-};
+import "./index.css";
 
 const App = () => {
   const course = "Half Stack application development";
-  const part1 = {
-    name: "Fundamentals of React",
-    exercises: 10
+  const part1 = "Fundamentals of React";
+  const part2 = "Using props to pass data";
+  const part3 = "State of a component";
+  const exercises1 = 10;
+  const exercises2 = 7;
+  const exercises3 = 14;
+
+  const Header = (props) => {
+    return <h1>{props.course}</h1>;
   };
-  const part2 = {
-    name: "Using props to pass data",
-    exercises: 7
+
+  const Content = (props) => {
+    return (
+      <p>
+        The name of this part is {props.part} and it has {props.exercises}{" "}
+        exercises
+      </p>
+    );
   };
-  const part3 = {
-    name: "State of a component",
-    exercises: 14
+
+  const Total = (props) => {
+    return (
+      <p>
+        The total number of exercises are {exercises1 + exercises2 + exercises3}
+      </p>
+    );
   };
 
   return (
-    <div>
+    <>
       <Header course={course} />
-      <Content part={part1.name} exercises={part1.exercises} />
-      <Content part={part2.name} exercises={part2.exercises} />
-      <Content part={part3.name} exercises={part3.exercises} />
-      <Total exercises={part1.exercises + part2.exercises + part3.exercises} />
-    </div>
+
+      <Content part={part1} exercises={exercises1} />
+      <Content part={part2} exercises={exercises2} />
+      <Content part={part3} exercises={exercises3} />
+
+      <Total />
+    </>
   );
 };
 
 ReactDOM.render(<App />, document.getElementById("root"));
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
