@@ -1,0 +1,53 @@
+import React from "react";
+import ReactDOM from "react-dom";
+
+const App = () => {
+  const course = {
+    name: "Half Stack application development",
+    parts: [
+      {
+        name: "Fundamentals of React",
+        exercises: 10,
+      },
+      {
+        name: "Using props to pass data",
+        exercises: 7,
+      },
+      {
+        name: "State of a component",
+        exercises: 14,
+      },
+    ],
+  };
+
+  const totalCourses = () => {
+    let value = 0;
+    for (let i = 0; i <= course.parts.length; i++) {
+      return (value += course.parts[i].exercises);
+    }
+    return value;
+  };
+
+  const courseNameExercises = course.parts.map((value) => (
+    <p>
+      The course name is {value.name} and it has {value.exercises} exercises
+    </p>
+  ));
+
+  return (
+    <div>
+      <h1>{course.name}</h1>
+      <h4>{courseNameExercises}</h4>
+      <h3>The total number of the courses are {totalCourses()}</h3>
+    </div>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById("root"));
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
