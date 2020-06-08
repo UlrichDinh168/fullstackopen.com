@@ -1,46 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+
+const Button = ({ feedback, content }) => (
+  <button onClick={feedback}>{content}</button>
+);
+
+const Statistics = ({ content, value }) => {
+  return (
+    <tr>
+      <td>{content}</td>
+      <td>{value}</td>
+    </tr>
+  );
+};
 
 const App = () => {
-  const course = "Half Stack application development";
-  const part1 = "Fundamentals of React";
-  const part2 = "Using props to pass data";
-  const part3 = "State of a component";
-  const exercises1 = 10;
-  const exercises2 = 7;
-  const exercises3 = 14;
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
 
-  const Header = (props) => {
-    return <h1>{props.course}</h1>;
-  };
-
-  const Content = () => {
-    return (
-      <>
-        <p>The name of this part is {part1} and it has {exercises1} exercises</p>
-        <p>The name of this part is {part2} and it has {exercises2} exercises</p>
-        <p>The name of this part is {part3} and it has {exercises3} exercises</p>
-      </>
-    );
-  };
-
-  const Total = () => {
-    return (
-      <h2>
-        The total number of exercises are {exercises1 + exercises2 + exercises3}
-      </h2>
-    );
-  };
+  const total = good + neutral + bad;
+  const average = (total / 3).toFixed(2);
+  const positive = ((good / total) * 100).toFixed(2) + "%";
 
   return (
-    <>
-      <Header course={course} />
+    <div>
+      <h1>Give Feedback</h1>
+      <Button feedback={() => setGood(good + 1)} content="Good" />
+      <Button feedback={() => setNeutral(neutral + 1)} content="Neurtal" />
+      <Button feedback={() => setBad(bad + 1)} content="Bad" />
+      
 
-      <Content />
-
-      <Total />
-    </>
+      <h2>Statistics</h2>
+      {total === 0 ? (
+        <p>No feedback is given</p>
+      ) : (
+        <table>
+          <tbody>
+            <Statistics content="Good" value={good} />
+            <Statistics content="Neutral" value={neutral} />
+            <Statistics content="Neutral" value={bad} />
+            <Statistics content="All" value={total} />
+            <Statistics content="Average" value={average} />
+            <Statistics content="Positive" value={positive} />
+          </tbody>
+        </table>
+      )}
+    </div>
   );
 };
 
