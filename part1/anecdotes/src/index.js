@@ -1,44 +1,50 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
-const MaxVotes = (props) => {
-	const maxvote = Math.max(...props.votes)
-	var maxindex = props.votes.indexOf(maxvote)
-	
-	if(maxvote===0){
-			return (
-					<p> no votes </p>
-			)
-	}
-	return (
-			<p>{props.anecdotes[maxindex]}</p>
-	)
-}
+const MaxVote = (props) => {
+  const maxVote = Math.max(...props.vote); //find the max vote
+  let indexOfMax = props.vote.indexOf(maxVote); //find max vote's index
+
+  if (maxVote === 0) {
+    return (<p>No votes</p>);
+  }
+  return (<p>{anecdotes[indexOfMax]}</p>);
+};
 
 const App = (props) => {
-const [selected, setSelected] = useState(0)
-const [votes, setVotes] = useState(new Array(5).fill(0))
-const incVote = (selected) => {
-		const copy = [...votes]
-		copy[selected] += 1
-		setVotes(copy)
-}
-return (
-	<div>
-			<h1> Anecdote of the day </h1>
-		 
-			{props.anecdotes[selected]}   {votes[selected]} votes <br/>
-			<div>
-					<button onClick={()=> setSelected(Math.floor(Math.random()*5))}>next anecdote</button>
-					<button onClick={()=> incVote(selected)}>vote</button>
-			</div>
-			<br/>
-			<h1>Anecdote with most votes</h1>
-			<MaxVotes votes = {votes} anecdotes={props.anecdotes} />
+  const [selected, setSelected] = useState(0);
+  const [vote, setVote] = useState(new Array(anecdotes.length).fill(0));
 
-	</div>
-)
-}
+  const voteCount = (selected) => {
+    const copy = [...vote];
+    copy[selected] += 1;
+    setVote(copy);
+  };
+
+  return (
+    <div>
+      <div>{props.anecdotes[selected]}</div>
+      <div>{vote[selected]} votes</div>
+      <div>
+        <button
+          onClick={() =>
+            setSelected(Math.floor(Math.random() * anecdotes.length) + 1)
+          }
+        >
+          Next anecdotes
+        </button>
+
+        <button onClick={() => voteCount(selected)}>Vote</button>
+
+        <h3>
+          Anecdotes with most votes is
+          <MaxVote vote={vote} anecdotes={anecdotes} />
+        </h3>
+      </div>
+    </div>
+  );
+};
+
 const anecdotes = [
   "If it hurts, do it more often",
   "Adding manpower to a late software project makes it later!",
