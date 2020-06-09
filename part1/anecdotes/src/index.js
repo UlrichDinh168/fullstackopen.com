@@ -6,15 +6,19 @@ const MaxVote = (props) => {
   let indexOfMax = props.vote.indexOf(maxVote); //find max vote's index
 
   if (maxVote === 0) {
-    return (<p>No votes</p>);
+    return <p>No votes</p>;
   }
-  return (<p>{anecdotes[indexOfMax]}</p>);
+  return (
+    <p>
+      {anecdotes[indexOfMax]} has {maxVote}
+    </p>
+  );
 };
 
 const App = (props) => {
   const [selected, setSelected] = useState(0);
   const [vote, setVote] = useState(new Array(anecdotes.length).fill(0));
-
+  // console.log(vote);
   const voteCount = (selected) => {
     const copy = [...vote];
     copy[selected] += 1;
@@ -23,12 +27,14 @@ const App = (props) => {
 
   return (
     <div>
-      <div>{props.anecdotes[selected]}</div>
-      <div>{vote[selected]} votes</div>
+      <div>
+        {props.anecdotes[selected]} has {vote[selected]} votes
+      </div>
+
       <div>
         <button
           onClick={() =>
-            setSelected(Math.floor(Math.random() * anecdotes.length) + 1)
+            setSelected(Math.floor(Math.random() * anecdotes.length))
           }
         >
           Next anecdotes
@@ -36,10 +42,10 @@ const App = (props) => {
 
         <button onClick={() => voteCount(selected)}>Vote</button>
 
-        <h3>
-          Anecdotes with most votes is
+        <h3>Anecdotes with most votes is</h3>
+        <h5>
           <MaxVote vote={vote} anecdotes={anecdotes} />
-        </h3>
+        </h5>
       </div>
     </div>
   );
