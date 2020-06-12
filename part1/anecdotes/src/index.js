@@ -25,20 +25,26 @@ const App = (props) => {
     setVote(copy);
   };
 
+  const random = () => {
+    let randomNumber1 = Math.floor(Math.random() * anecdotes.length);
+    let randomNumber2 = Math.floor(Math.random() * anecdotes.length);
+
+    if (randomNumber1 === randomNumber2) {
+      return randomNumber2;
+    } else {
+      return randomNumber1;
+    }
+
+  };
+
   return (
     <div>
       <div>
-        {props.anecdotes[selected]} has {vote[selected]} votes
+        "{anecdotes[selected]}" has {vote[selected]} votes
       </div>
 
       <div>
-        <button
-          onClick={() =>
-            setSelected(Math.floor(Math.random() * anecdotes.length))
-          }
-        >
-          Next anecdotes
-        </button>
+        <button onClick={() => setSelected(random())}>Next anecdotes</button>
 
         <button onClick={() => voteCount(selected)}>Vote</button>
 
@@ -52,7 +58,7 @@ const App = (props) => {
 };
 
 const anecdotes = [
-  "If it hurts, do it more often",
+  "If it hurts, do it more often.",
   "Adding manpower to a late software project makes it later!",
   "The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.",
   "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
