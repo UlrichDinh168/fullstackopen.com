@@ -25,6 +25,16 @@ const App = (props) => {
     setVote(copy);
   };
 
+  // const random = () => {
+  //   for (let i = 1; i <= anecdotes.length; i++){
+  //     console.log(anecdotes.length)
+  //     let temp = Math.floor(Math.random() * anecdotes.length);
+  //     if(temp === anecdotes[i - 1]){ continue }
+  //     anecdotes.push(temp)
+  //   }
+  //     return
+  //   }
+
   return (
     <div>
       <div>
@@ -32,11 +42,7 @@ const App = (props) => {
       </div>
 
       <div>
-        <button
-          onClick={() =>
-            setSelected(Math.floor(Math.random() * anecdotes.length))
-          }
-        >
+        <button onClick={() => setSelected(Math.floor(Math.random() * anecdotes.length))}>
           Next anecdotes
         </button>
 
