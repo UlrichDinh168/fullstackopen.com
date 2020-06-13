@@ -25,18 +25,6 @@ const App = (props) => {
     setVote(copy);
   };
 
-  const random = () => {
-    let randomNumber1 = Math.floor(Math.random() * anecdotes.length);
-    let randomNumber2 = Math.floor(Math.random() * anecdotes.length);
-
-    if (randomNumber1 === randomNumber2) {
-      return randomNumber2;
-    } else {
-      return randomNumber1;
-    }
-
-  };
-
   return (
     <div>
       <div>
@@ -44,7 +32,13 @@ const App = (props) => {
       </div>
 
       <div>
-        <button onClick={() => setSelected(random())}>Next anecdotes</button>
+        <button
+          onClick={() =>
+            setSelected(Math.floor(Math.random() * anecdotes.length))
+          }
+        >
+          Next anecdotes
+        </button>
 
         <button onClick={() => voteCount(selected)}>Vote</button>
 
