@@ -11,8 +11,11 @@ const App = () => {
     </p>
   );
   const Total = ({ parts }) => {
-    const total = parts.reduce((total, part) => total + part.exercises, 0);
-    return <p>Total of {total} exercises</p>;
+    const total = parts.reduce((total, part) => {
+      // console.log("what is wrong with", total, part);
+      return total + part.exercises;
+    }, 0);
+    return <h4>Total of {total} exercises</h4>;
   };
 
   const Content = ({ courses }) => {
@@ -23,9 +26,9 @@ const App = () => {
             <Header name={course.name} />
             {course.parts.map((part) => (
               <Part
+                key={part.name}
                 name={part.name}
                 exercises={part.exercises}
-                key={part.name}
               />
             ))}
             <Total parts={course.parts} />
