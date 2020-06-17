@@ -1,8 +1,6 @@
 import React from "react";
 
 const App = () => {
-  const Course = ({ courses }) => <Content courses={courses} />;
-
   const Header = ({ name }) => <h1>{name}</h1>;
 
   const Part = ({ name, exercises }) => (
@@ -10,33 +8,35 @@ const App = () => {
       {name} {exercises}
     </p>
   );
+
   const Total = ({ parts }) => {
-    const total = parts.reduce((total, part) => {
-      // console.log("what is wrong with", total, part);
-      return total + part.exercises;
-    }, 0);
-    return <h4>Total of {total} exercises</h4>;
+    const total = parts.reduce((total, part) => total + part.exercises, 0);
+    return <h4>There are {total} exercises in total</h4>;
   };
 
-  const Content = ({ courses }) => {
+  const Display = ({ courses }) => {
     return (
       <>
         {courses.map((course) => (
           <div key={course.name}>
             <Header name={course.name} />
-            {course.parts.map((part) => (
+
+            {course.parts.map((part) => (//notes
               <Part
                 key={part.name}
                 name={part.name}
                 exercises={part.exercises}
               />
             ))}
+
             <Total parts={course.parts} />
           </div>
         ))}
       </>
     );
   };
+
+  const Courses = ({ courses }) => <Display courses={courses} />;
 
   const courses = [
     {
@@ -82,7 +82,8 @@ const App = () => {
       ],
     },
   ];
-  return <Course courses={courses} />;
+
+  return <Courses courses={courses} />;
 };
 
 export default App;
